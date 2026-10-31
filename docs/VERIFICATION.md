@@ -20,3 +20,9 @@ HTTP tests cover authentication, cookie properties, CSRF, Origin rejection, comp
 The two browser scenarios exercise successful and failed transitions through visible controls. Screenshots are `entry.png`, `workbench.png`, `operation.png` and `mobile.png`. Sample evidence and deployments are explicitly labeled fixtures. Application tests in this repository are distinct from the manually recorded unit/API/security outcomes displayed inside the product.
 
 The test client dependency emits a Starlette/httpx deprecation warning; checks still pass. These tests are not a production IAM audit, external deployment integration test, security scan, load benchmark or validation of real migration safety.
+
+## Published demo
+
+Both browser scenarios passed against `https://releaselab-demo.onrender.com/` on 31 October 2026 for application commit `a4f5f16`. The successful path recorded sign-off, promoted the staging candidate to the simulated production pointer, exported evidence and restored the earlier successful artifact. The failing-health path preserved staging. GitHub Actions also completed successfully for that application commit.
+
+Pending command dialogs disable their close control and prevent Escape from dismissing them until the request settles. The browser helper waits for the terminal result before continuing, covering hosted network latency.
