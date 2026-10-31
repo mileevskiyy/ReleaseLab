@@ -154,3 +154,48 @@ test("a candidate with failing health never replaces the active staging artifact
     page.locator(".environments-grid .env-card.staging .env-version"),
   ).toContainText("v1.5.0");
 });
+
+test("expired-session response clears the old dialog before opening a new workspace", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "Open the sandbox", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Record sign-off", exact: true })
+    .click();
+  const expired = "**/api/releases/*/approve";
+  await page.route(expired, (route) =>
+    route.fulfill({
+      status: 401,
+      contentType: "application/json",
+      body: JSON.stringify({
+        error: "Your demo expired. Open a fresh workspace.",
+      }),
+    }),
+  );
+  await page
+    .getByRole("dialog")
+    .getByRole("button", { name: "Record sign-off", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Open the sandbox", exact: true }),
+  ).toBeVisible();
+  await page.unroute(expired);
+  await page
+    .getByRole("button", { name: "Open the sandbox", exact: true })
+    .click();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: /v1.5.0/ })).toBeVisible();
+  await page
+    .getByRole("button", { name: "Record sign-off", exact: true })
+    .click();
+  await page
+    .getByRole("dialog")
+    .getByRole("button", { name: "Record sign-off", exact: true })
+    .click();
+  await expect(
+    page.getByRole("button", { name: "Signed off", exact: true }),
+  ).toBeDisabled();
+});

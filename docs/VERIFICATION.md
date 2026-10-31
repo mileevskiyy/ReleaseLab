@@ -26,3 +26,7 @@ The test client dependency emits a Starlette/httpx deprecation warning; checks s
 Both browser scenarios passed against `https://releaselab-demo.onrender.com/` on 31 October 2026 for application commit `a4f5f16`. The successful path recorded sign-off, promoted the staging candidate to the simulated production pointer, exported evidence and restored the earlier successful artifact. The failing-health path preserved staging. GitHub Actions also completed successfully for that application commit.
 
 Pending command dialogs disable their close control and prevent Escape from dismissing them until the request settles. The browser helper waits for the terminal result before continuing, covering hosted network latency.
+
+## Session-recovery recheck
+
+A browser regression test reproduced an expired-session response while a sign-off dialog was open. The old client could retain the previous selection/dialog when creating a new workspace. The client now clears expired workspace UI state and validates the selected candidate against each incoming workspace. All three browser scenarios pass locally. The recovery test injects HTTP 401 at the request boundary; it does not restart the hosting service.

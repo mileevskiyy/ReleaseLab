@@ -138,6 +138,11 @@ export default function App() {
       if (response.status === 401) {
         setW(null);
         setCsrf("");
+        setModal(null);
+        setSelected("");
+        setView("releases");
+        setTab("overview");
+        pending.current.clear();
         latestRevision.current = -1;
       }
       const e = new Error(data.error || "Request failed.") as Error & {
@@ -154,7 +159,9 @@ export default function App() {
     setW(data);
     setSelected(
       (old) =>
-        old ||
+        (data.releases.some((candidate: any) => candidate.id === old)
+          ? old
+          : "") ||
         data.releases.find((r: any) => r.manifest.version === "1.5.0")?.id ||
         data.releases[0]?.id ||
         "",
