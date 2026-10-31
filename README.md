@@ -2,6 +2,11 @@
 
 **A release-control sandbox for immutable candidates, evidence gates, promotion rehearsals and traceable restore operations.**
 
+[![Live demo](https://img.shields.io/badge/Live_demo-Try_ReleaseLab-c96635?style=for-the-badge)](https://releaselab-demo.onrender.com/)
+[![Release workflow checks](https://github.com/mileevskiyy/ReleaseLab/actions/workflows/ci.yml/badge.svg)](https://github.com/mileevskiyy/ReleaseLab/actions/workflows/ci.yml)
+
+**[Open the live demo](https://releaselab-demo.onrender.com/)** → **Open the sandbox**. No account, repository token or setup key is needed. The free service may take a little time to wake after inactivity. Each visitor gets an isolated disposable workspace.
+
 ReleaseLab models what must remain consistent around a release: the candidate identity, recorded build outcomes, staging verification, a deliberate sign-off and the environment generation being changed. Its interface is a light engineering workbench with monospaced identifiers, a visible release route and orange action controls.
 
 ![ReleaseLab workbench](docs/workbench.png)

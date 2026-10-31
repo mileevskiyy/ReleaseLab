@@ -13,6 +13,14 @@ async function complete(page: any, healthy = true) {
       exact: true,
     })
     .click();
+  await expect(
+    page.getByText(
+      healthy
+        ? "Sandbox artifact pointer committed."
+        : "Active environment preserved.",
+      { exact: !healthy },
+    ),
+  ).toBeVisible();
 }
 test("sign off, promote, export evidence and restore the previous successful artifact", async ({
   page,
